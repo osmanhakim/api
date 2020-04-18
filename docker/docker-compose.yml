@@ -1,0 +1,17 @@
+version: "3.7"
+services: 
+  web:
+    build: .
+    ports:
+        - 99:80
+  db:
+    build: ./Doc
+    volumes:
+      - ."db/:/docker-entrypoint-initdb.d"
+    environment:
+        MYSQL_ROOT_PASSWORD: 54411
+        MYSQL_DATABASE: store
+    expose:
+     - 3307
+    ports:
+     - 3307:3306 

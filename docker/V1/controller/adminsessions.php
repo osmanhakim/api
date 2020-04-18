@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
    $con = new db();
    $sql=$con->connect();
    $hashpassword = md5($input->password);
-   $query= "select id,username,password from buyer where username='".$input->username."' and password='".$hashpassword."';";
+   $query= "select id,username,password from admin where username='".$input->username."' and password='".$hashpassword."';";
   // echo "SQL Query to execute: $query"; # Debug Message
    $result=mysql_query($query,$sql);
    $rows=mysql_num_rows($result);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
    $data=mysql_fetch_array($result,MYSQL_ASSOC);
    $accesstoken=base64_encode(bin2hex(openssl_random_pseudo_bytes(24).time()));
    $accesstokenexpirey=604800; // 7 days
-   $query="insert into buyersessions (userid,accesstoken,accesstokenexpirey) values (".$data['id'].",'".$accesstoken."',date_add(NOW(),INTERVAL ".$accesstokenexpirey." SECOND));";
+   $query="insert into adminsessions (userid,accesstoken,accesstokenexpirey) values (".$data['id'].",'".$accesstoken."',date_add(NOW(),INTERVAL ".$accesstokenexpirey." SECOND));";
    mysql_query($query,$sql);
    //echo "SQL Query to execute: $query"; # Debug Message
    $rows=mysql_affected_rows();
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
      $response->setSuccess(false);
      $response->setHttpStatusCode(500); // server error
     // $response->setData($data);
-     $response->addMessage("Error while trying login buyer user");
+     $response->addMessage("Error while trying login admin user");
      $response->send();
      exit;
    }

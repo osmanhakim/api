@@ -1,0 +1,13 @@
+php_flag display_errors on
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^buyer$ controller/buyer.php [L]
+RewriteRule ^seller$ controller/seller.php [L]
+RewriteRule ^user$ controller/user.php [L]
+RewriteRule ^admin/sessions$ controller/adminsessions.php [L]
+RewriteRule ^buyer/sessions$ controller/buyersessions.php [L]
+RewriteRule ^seller/sessions$ controller/sellersessions.php [L]
